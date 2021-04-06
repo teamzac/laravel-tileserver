@@ -12,7 +12,12 @@ class TileController
         // handle non modified etags
         $tiles = Tileset::fromMbtiles($tileset);
 
-        return response($tiles->getTile($x, $y, $z))
+        $tile = $tiles->getTile($x, $y, $z);
+        if (is_null($tile)) {
+            abort(404);
+        }
+
+        return response($tile)
             ->header('Content-Type', 'application/x-protobuf')
             ->header('Content-Encoding', 'gzip')
             ->header('Access-Control-Allow-Origin', '*');
