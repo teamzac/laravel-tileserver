@@ -17,7 +17,7 @@ class LaravelTileserverServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel-tileserver.php'),
+                __DIR__.'/../config/config.php' => config_path('tileserver.php'),
             ], 'config');
         }
 

@@ -4,6 +4,7 @@ namespace TeamZac\LaravelTileserver\Providers\Mbtiles;
 
 use Illuminate\Support\Facades\DB;
 use TeamZac\LaravelTileserver\Contracts\TileProviderContract;
+use TeamZac\LaravelTileserver\Tileserver;
 use TeamZac\LaravelTileserver\TilesetMetadata;
 
 class MbtilesProvider implements TileProviderContract
@@ -21,11 +22,7 @@ class MbtilesProvider implements TileProviderContract
         DB::purge('tileset');
         
         config()->set('database.connections.tileset', array_merge(config('database.connections.sqlite'), [
-            'database' => sprintf(
-                '%s/%s.mbtiles',
-                base_path(config('tileserver.directory')),
-                trim($tileset, '/')
-            )
+            'database' => Tileserver::file($tileset),
         ]));
 
         $this->database = DB::connection('tileset');

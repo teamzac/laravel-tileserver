@@ -14,7 +14,7 @@ class Tileserver
     public static function file($file) 
     {
         return sprintf(
-            '%s/%s.mbtiles', static::basePath(), trim($file, '/')
+            '%s/%s.mbtiles', static::directory(), trim($file, '/')
         );
     }
 }
