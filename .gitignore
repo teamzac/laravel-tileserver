@@ -1,0 +1,8 @@
+build
+composer.lock
+docs
+vendor
+coverage
+storage
+**/*.DS_Store
+.phpunit.result.cache
