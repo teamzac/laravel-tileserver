@@ -47,6 +47,6 @@ class MbtilesProvider implements TileProviderContract
             ->where('tile_row', (int) $y)
             ->first();
 
-        return $result->tile_data;
+        return optional($result)->tile_data;
     }
 }
