@@ -3,6 +3,7 @@
 namespace TeamZac\LaravelTileserver\Controllers;
 
 use Illuminate\Http\Request;
+use TeamZac\LaravelTileserver\Exceptions\TileNotFoundException;
 use TeamZac\LaravelTileserver\Tileset;
 
 class TileController
@@ -12,8 +13,9 @@ class TileController
         // handle non modified etags
         $tiles = Tileset::fromMbtiles($tileset);
 
-        $tile = $tiles->getTile($x, $y, $z);
-        if (is_null($tile)) {
+        try {
+            $tile = $tiles->getTile($x, $y, $z);    
+        } catch (TileNotFoundException $e) {
             abort(404);
         }
 

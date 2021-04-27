@@ -4,6 +4,7 @@ namespace TeamZac\LaravelTileserver\Providers\Mbtiles;
 
 use Illuminate\Support\Facades\DB;
 use TeamZac\LaravelTileserver\Contracts\TileProviderContract;
+use TeamZac\LaravelTileserver\Exceptions\TileNotFoundException;
 use TeamZac\LaravelTileserver\Tileserver;
 use TeamZac\LaravelTileserver\TilesetMetadata;
 
@@ -41,12 +42,13 @@ class MbtilesProvider implements TileProviderContract
         }
 
         $result = $this->database->table('tiles')
-            // ->select('tile_data')
             ->where('zoom_level', (int) $z)
             ->where('tile_column', (int) $x)
             ->where('tile_row', (int) $y)
             ->first();
 
-        return optional($result)->tile_data;
+        throw_if(is_null($result), TileNotFoundException::class);
+
+        return $result->tile_data;
     }
 }
