@@ -44,10 +44,5 @@ class LaravelTileserverServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'tileserver');
-
-        // Register the main class to use with the facade
-        $this->app->singleton(TilesetManager::class, function ($app) {
-            return new TilesetManager($app);
-        });
     }
 }
